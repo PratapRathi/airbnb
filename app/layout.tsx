@@ -2,6 +2,8 @@ import { Nunito } from "next/font/google";
 import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/app/components/navbar/Navbar";
+import RegisterModal from "@/app/components/modals/RegisterModal";
+import ToasterProvider from "@/app/providers/ToasterProvider";
 
 
 export const metadata: Metadata = {
@@ -18,6 +20,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en">
       <body className={font.className}>
+        <ToasterProvider/>
+        <RegisterModal/>
         <Navbar />
         {children}
       </body>
