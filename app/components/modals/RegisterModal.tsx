@@ -3,7 +3,7 @@ import axios from "axios";
 import * as z from 'zod'
 import useRegisterModal from "@/app/hooks/useRegisterModal";
 import { useState } from "react";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { registerSchema } from '@/app/schema/registerSchema';
 import Modal from "@/app/components/modals/Modal";
@@ -18,13 +18,12 @@ const RegisterModal = () => {
   const registerModal = useRegisterModal();
   const [isLoading, setIsLoading] = useState(false);
 
-  const { register, handleSubmit, formState: { errors } } = useForm<z.infer<typeof registerSchema>>({
+  const { register, handleSubmit, formState: { errors }, reset } = useForm<z.infer<typeof registerSchema>>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
       name: "",
       email: "",
-      password: "",
-      confirmPassword: ""
+      password: ""
     }
   })
 
@@ -32,10 +31,12 @@ const RegisterModal = () => {
     setIsLoading(true);
     axios.post("/api/register", data).then((res) => {
       registerModal.onClose();
+      toast.success("Account created succesfully");
     }).catch((err) => {
-      toast.error("Something went wrong");
+      toast.error(err.response.data);
     }).finally(() => {
       setIsLoading(false);
+      reset();
     })
   }
 
@@ -45,7 +46,6 @@ const RegisterModal = () => {
       <Input id="name" label="Name" disabled={isLoading} register={register} errors={errors} />
       <Input id="email" label="Email" disabled={isLoading} register={register} errors={errors} />
       <Input id="password" type="password" label="Password" disabled={isLoading} register={register} errors={errors} />
-      <Input id="confirmPassword" type="password" label="Confirm Password" disabled={isLoading} register={register} errors={errors} />
     </div>
   )
 

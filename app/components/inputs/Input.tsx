@@ -16,9 +16,6 @@ interface InputProps {
 }
 
 const Input: React.FC<InputProps> = ({ id, label, type = "text", disabled, formatPrice, required, errors, register }) => {
-    if(errors){
-        console.log(errors);
-    }
     return (
         <div className="w-full relative">
             {formatPrice && <BiRupee size={24} className="absolute top-5 left-2 text-neutral-700" />}
