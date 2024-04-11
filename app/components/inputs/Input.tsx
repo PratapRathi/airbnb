@@ -2,18 +2,19 @@
 import * as z from 'zod';
 import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form"
 import { BiRupee } from "react-icons/bi"
-import { registerSchema } from '@/app/schema/registerSchema';
+import { loginSchema, registerSchema } from '@/app/schema/registerSchema';
 
 interface InputProps {
-    id: keyof z.infer<typeof registerSchema>
+    id: keyof z.infer<typeof registerSchema> 
     label: string
     type?: string
     disabled?: boolean
     formatPrice?: string
     required?: boolean
-    register: UseFormRegister<z.infer<typeof registerSchema>>
+    register: UseFormRegister<z.infer<typeof registerSchema>> | UseFormRegister<z.infer<typeof loginSchema | typeof registerSchema>>
     errors: FieldErrors
 }
+
 
 const Input: React.FC<InputProps> = ({ id, label, type = "text", disabled, formatPrice, required, errors, register }) => {
     return (

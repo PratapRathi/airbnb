@@ -2,6 +2,7 @@
 import axios from "axios";
 import * as z from 'zod'
 import useRegisterModal from "@/app/hooks/useRegisterModal";
+import useLoginModal from "@/app/hooks/useLoginModal";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -15,6 +16,7 @@ import { FcGoogle } from "react-icons/fc";
 import { AiFillGithub } from "react-icons/ai";
 
 const RegisterModal = () => {
+  const loginModal = useLoginModal();
   const registerModal = useRegisterModal();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -26,6 +28,11 @@ const RegisterModal = () => {
       password: ""
     }
   })
+
+  const onClose = () => {
+    registerModal.onClose();
+    loginModal.onOpen();
+  }
 
   const onSubmit = (data: z.infer<typeof registerSchema>) => {
     setIsLoading(true);
@@ -57,7 +64,7 @@ const RegisterModal = () => {
       <div className="text-neutral-500 text-center mt-4 font-light">
         <div className="flex flex-row items-center gap-2 justify-center">
           <div>Already have an account?</div>
-          <div onClick={registerModal.onClose} className="text-neutral-800 cursor-pointer hover:underline">Login</div>
+          <div onClick={onClose} className="text-neutral-800 cursor-pointer hover:underline">Login</div>
         </div>
       </div>
     </div>

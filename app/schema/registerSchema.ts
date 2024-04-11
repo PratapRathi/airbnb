@@ -5,3 +5,9 @@ export const registerSchema = z.object({
     email: z.string({ required_error: "Email is required" }).email({ message: "Please provide valid email" }),
     password: z.string({ required_error: "Password is required" }).min(5, { message: "Password is required" }),
 })
+
+
+export const loginSchema = z.object({
+    email: z.string({ required_error: "Email is required" }).email({ message: "Please provide valid email" }),
+    password: z.string({ required_error: "Password is required" })
+})
