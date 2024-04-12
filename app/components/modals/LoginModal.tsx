@@ -42,7 +42,6 @@ const LoginModal = () => {
             ...data,
             redirect: false
         }).then((callback)=>{
-            console.log(callback);
             setIsLoading(false);
             if(callback?.ok){
                 toast.success("Logged in successfully")
@@ -67,8 +66,8 @@ const LoginModal = () => {
     const footerContent = (
         <div className="flex flex-col mt-3 gap-4">
             <hr />
-            <Button outline label="Continue with Google" onClick={() => { }} icon={FcGoogle} />
-            <Button outline label="Continue with Github" onClick={() => { }} icon={AiFillGithub} />
+            <Button outline label="Continue with Google" onClick={() => signIn("google")} icon={FcGoogle} />
+            <Button outline label="Continue with Github" onClick={() => signIn("github")} icon={AiFillGithub} />
             <div className="text-neutral-500 text-center mt-4 font-light">
                 <div className="flex flex-row items-center gap-2 justify-center">
                     <div>Do not have any account?</div>
