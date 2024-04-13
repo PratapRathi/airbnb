@@ -1,5 +1,4 @@
 "use client"
-import axios from "axios";
 import * as z from 'zod'
 import useRegisterModal from "@/app/hooks/useRegisterModal";
 import useLoginModal from "@/app/hooks/useLoginModal";
