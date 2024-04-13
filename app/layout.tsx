@@ -9,7 +9,7 @@ import getCurrentUser from "@/app/actions/getCurrentUser";
 
 
 export const metadata: Metadata = {
-  title: "Airbnb",
+  title: "Airbnb | Holiday rentals, cabins, beach houses & more",
   description: "Holiday rentals, Cabins, beach, house & more",
   icons: { icon: "/favicon_airbnb.png" }
 };

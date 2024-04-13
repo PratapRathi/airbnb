@@ -4,6 +4,7 @@ import Logo from '@/app/components/navbar/Logo'
 import Search from '@/app/components/navbar/Search'
 import UserMenu from './UserMenu'
 import { User } from '@prisma/client'
+import Categories from '@/app/components/navbar/Categories'
 
 interface NavbarProps {
   currentUser?: User | null
@@ -21,6 +22,8 @@ const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
           </div>
         </Container>
       </div>
+      <hr />
+      <Categories/>
     </div>
   )
 }
