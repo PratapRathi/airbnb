@@ -3,7 +3,7 @@ import axios from "axios";
 import * as z from 'zod'
 import useRegisterModal from "@/app/hooks/useRegisterModal";
 import useLoginModal from "@/app/hooks/useLoginModal";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { loginSchema } from '@/app/schema/registerSchema';
@@ -31,24 +31,24 @@ const LoginModal = () => {
         }
     })
 
-    const onClose = () => {
+    const onClose = useCallback(() => {
         loginModal.onClose();
         registerModal.onOpen();
-    }
+    }, [loginModal, registerModal])
 
     const onSubmit = (data: z.infer<typeof loginSchema>) => {
         setIsLoading(true);
-        signIn("credentials",{
+        signIn("credentials", {
             ...data,
             redirect: false
-        }).then((callback)=>{
+        }).then((callback) => {
             setIsLoading(false);
-            if(callback?.ok){
+            if (callback?.ok) {
                 toast.success("Logged in successfully")
                 router.refresh();
                 loginModal.onClose();
             }
-            if(callback?.error){
+            if (callback?.error) {
                 toast.error("Invalid credentials")
             }
             reset();

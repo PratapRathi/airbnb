@@ -3,7 +3,7 @@ import axios from "axios";
 import * as z from 'zod'
 import useRegisterModal from "@/app/hooks/useRegisterModal";
 import useLoginModal from "@/app/hooks/useLoginModal";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { registerSchema } from '@/app/schema/registerSchema';
@@ -30,10 +30,10 @@ const RegisterModal = () => {
     }
   })
 
-  const onClose = () => {
+  const onClose = useCallback(() => {
     registerModal.onClose();
     loginModal.onOpen();
-  }
+  }, [registerModal, loginModal]);
 
   const onSubmit = (data: z.infer<typeof registerSchema>) => {
     setIsLoading(true);
