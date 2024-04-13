@@ -21,3 +21,7 @@ html, body, :root {
     border-radius: 20px;
     background: #6c6b6b;
   }
+
+.leaflet-bottom, .leaflet-control, .leaflet-pane, .leaflet-top {
+  z-index: 0 !important;
+}

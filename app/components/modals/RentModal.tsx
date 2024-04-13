@@ -1,11 +1,14 @@
 "use client"
 import Modal from "@/app/components/modals/Modal";
 import useRentModal from "@/app/hooks/useRentModal";
+import { FieldValues, useForm } from "react-hook-form";
 import { useMemo, useState } from "react";
-import Heading from "../Heading";
+import Heading from "@/app/components/Heading";
 import { categories } from "@/app/components/navbar/Categories";
 import CategoryInput from "@/app/components/inputs/CategoryInput";
-import { FieldValues, useForm } from "react-hook-form";
+import CountrySelect from "@/app/components/inputs/CountrySelect";
+import dynamic from "next/dynamic";
+// import Map from "@/app/components/Map";
 
 enum STEPS {
     CATEGORY,
@@ -35,6 +38,11 @@ const RentModal = () => {
     });
 
     const category = watch('category');
+    const location = watch('location');
+
+    const Map = useMemo(()=> dynamic(()=> import("@/app/components/Map"),{
+        ssr: false
+    }),[location]); 
 
     const setCustomValue = (id: string, value: any) => {
         setValue(id, value, {
@@ -84,14 +92,27 @@ const RentModal = () => {
         </div>
     )
 
+    if(step === STEPS.LOCATION) {
+        bodyContent = (
+            <div className="flex flex-col gap-8">
+                <Heading title="Where is your place located?" subtitle="Help guests find you"/>
+                <CountrySelect
+                    onChange={(value)=> setCustomValue("location", value)}
+                    value={location}
+                />
+                <Map center={location?.latlng}/>
+            </div>
+        )
+    }
+
     return (
         <Modal
             isOpen={rentModal.isOpen}
             onClose={rentModal.onClose}
-            onSubmit={rentModal.onClose}
+            onSubmit={onNext}
             actionLabel={actionLabel}
             secondaryLabel={secondaryActionLabel}
-            secondaryAction={step === STEPS.CATEGORY ? undefined : onBack}
+            secondaryAction={step === STEPS.CATEGORY? undefined : onBack}
             title="Airbnb your home!"
             body={bodyContent}
             />
