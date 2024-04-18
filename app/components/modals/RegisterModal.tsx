@@ -38,6 +38,7 @@ const RegisterModal = () => {
   const onSubmit = (data: z.infer<typeof registerSchema>) => {
     setIsLoading(true);
     axios.post("/api/register", data).then((res) => {
+      loginModal.onOpen();
       registerModal.onClose();
       toast.success("Account created succesfully");
     }).catch((err) => {
