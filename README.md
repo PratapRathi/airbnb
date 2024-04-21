@@ -38,6 +38,12 @@ Features:
 
 **Node version 14.x**
 
+### Live Deployed at 
+
+```shell
+https://airbnb-pratap.vercel.app/
+```
+
 ### Cloning the repository
 
 ```shell
