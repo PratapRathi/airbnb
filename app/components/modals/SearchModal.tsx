@@ -35,6 +35,7 @@ const SearchModal = () => {
         key: "selection"
     });
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const Map = useMemo(() => dynamic(() => import("@/app/components/Map"), { ssr: false }), [location]);
 
     const onNext = useCallback(() => {

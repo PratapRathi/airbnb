@@ -5,6 +5,7 @@ import Search from '@/app/components/navbar/Search'
 import UserMenu from './UserMenu'
 import { User } from '@prisma/client'
 import Categories from '@/app/components/navbar/Categories'
+import { Suspense } from 'react'
 
 interface NavbarProps {
   currentUser?: User | null
@@ -17,13 +18,17 @@ const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
         <Container>
           <div className='flex flex-row items-center justify-between gap-3 md:gap-0'>
             <Logo />
-            <Search />
+            <Suspense>
+              <Search />
+            </Suspense>
             <UserMenu currentUser={currentUser} />
           </div>
         </Container>
       </div>
       <hr />
-      <Categories/>
+      <Suspense>
+        <Categories />
+      </Suspense>
     </div>
   )
 }
